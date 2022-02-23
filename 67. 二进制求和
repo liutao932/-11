@@ -1,0 +1,58 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string s;
+        int endA = a.size() -1,endB = b.size() -1;
+        int flag = 0;
+        while(endA >= 0 && endB >= 0)
+        {
+            int tmp = (a[endA] - '0') + (b[endB] - '0') + flag;
+            if(tmp >= 2)
+            {
+                s += (tmp % 2 + '0');
+                flag = 1;
+            }
+            else
+            {
+                s += (tmp%2 + '0');
+                flag = 0;
+            }
+            endA--;
+            endB--;
+        }
+        while(endA >= 0)
+        {
+            int tmp = (a[endA] - '0')  + flag;
+            if(tmp >= 2)
+            {
+                s += (tmp % 2 + '0');
+                flag = 1;
+            }
+            else
+            {
+                s += (tmp%2 + '0');
+                flag = 0;
+            }
+            endA--;
+        }
+        while(endB>=0)
+        {
+            int tmp = (b[endB] - '0') + flag;
+            if(tmp >= 2)
+            {
+                s += (tmp % 2 + '0');
+                flag = 1;
+            }
+            else
+            {
+                s += (tmp%2 + '0');
+                flag = 0;
+            }
+            endB--;
+        }
+        if(flag == 1)
+        s += '1';
+        reverse(s.begin(),s.end());
+        return s;
+    }
+};
