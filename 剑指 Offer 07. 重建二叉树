@@ -1,0 +1,30 @@
+class Solution {
+public:
+    TreeNode* _buildTree(vector<int>& preorder,int per_strat,int per_end,vector<int>& inorder,int vin_strat,int vin_end)
+    {
+        if(per_strat > per_end || vin_strat > vin_end)
+        {
+            return nullptr;
+        }
+
+        TreeNode* root = new TreeNode(preorder[per_strat]);
+        for(auto i = 0; i <= per_end;  ++i)
+        {
+            if(preorder[per_strat] == inorder[i])
+            {
+
+                
+                root->left = _buildTree(preorder,per_strat+1,per_strat + i - vin_strat,inorder,vin_strat,i -1);
+                root->right = _buildTree(preorder, per_strat + i - vin_strat +1, per_end,inorder,i+1 ,per_end);
+                break;
+            }
+        }
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+            if(preorder.empty() || inorder.empty() || preorder.size() != inorder.size())
+            return nullptr;
+
+            return _buildTree(preorder,0,preorder.size() -1,inorder,0,inorder.size() -1);
+    }
+};
