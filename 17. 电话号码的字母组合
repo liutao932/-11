@@ -1,0 +1,24 @@
+class Solution {
+public:
+    string array[10] ={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+    void _letterCombinations(string& digits,size_t i,string str,vector<string> &ret)
+    {
+        if(i == digits.size())
+        {
+            ret.push_back(str);
+            return;
+        }
+        for(int j = 0;j<array[digits[i] -'0'].size();++j)
+        {
+            _letterCombinations(digits,i+1,str+array[digits[i] -'0'][j],ret);
+        }
+    }
+    vector<string> letterCombinations(string digits) {
+          vector<string> ret;
+       if(digits.empty()) return ret;
+     
+        string str;
+       _letterCombinations(digits,0,str,ret);
+       return ret;
+    }
+};
