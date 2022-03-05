@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int size = nums.size();
+        int prev = 0, cur = 1;
+        while(cur < size)
+        {
+            if(nums[prev] != nums[cur])
+            {
+                nums[prev+1] = nums[cur];
+                prev++;
+            }
+            cur++;
+        }
+        return prev+ 1;
+    }
+};
