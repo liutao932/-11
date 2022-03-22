@@ -1,0 +1,31 @@
+/**
+ * struct TreeNode {
+ *	int val;
+ *	struct TreeNode *left;
+ *	struct TreeNode *right;
+ * };
+ */
+
+class Solution {
+public:
+    /**
+     * 
+     * @param root TreeNode类 
+     * @param o1 int整型 
+     * @param o2 int整型 
+     * @return int整型
+     */
+    TreeNode* _lowestCommonAncestor(TreeNode* root, int o1, int o2)
+    {
+        if(root == nullptr || root->val == o1 ||root ->val == o2)
+            return root;
+        root->left = _lowestCommonAncestor(root->left,o1,o2);
+        root->right = _lowestCommonAncestor(root->right,o1,o2);
+        if(root->left != nullptr &&root->right != nullptr)
+            return root;
+        return root->left != nullptr ? root->left : root->right;
+    }
+    int lowestCommonAncestor(TreeNode* root, int o1, int o2) {
+        return _lowestCommonAncestor(root,o1,o2)->val;
+    }
+};
