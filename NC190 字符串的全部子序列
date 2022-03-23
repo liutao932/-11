@@ -1,0 +1,28 @@
+class Solution {
+public:
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param s string字符串 
+     * @return string字符串vector
+     */
+  
+    vector<string> v;
+    void dfs(string s,string x , int i)
+    {
+        if(i == s.size())
+        {
+            v.push_back(x);
+            return;
+        }
+        dfs(s,x,i +1);
+        dfs(s,x+s[i], i+1);
+    }
+    vector<string> generatePermutation(string s) {
+        dfs(s,"",0);
+        sort(v.begin(),v.end());//排序
+        v.erase(unique(v.begin(),v.end()),v.end());//取重
+        return v;
+    }
+};
