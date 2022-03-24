@@ -1,0 +1,18 @@
+给定一组商品价格和重量，和一个袋子，求怎么装价值最大
+
+所有情况全部遍历，求最大
+int process2(vector<int>& weights, vector<int>& values, int i, int alreadWdgth, int alreadValue, int bag)
+{
+    if (alreadWdgth > bag)
+        return 0;
+    if (i == values.size())
+        return alreadValue;
+    return max(process2(weights, values, i + 1, alreadWdgth, alreadValue, bag),  //不要这个商品
+        process2(weights, values, i + 1, alreadWdgth + weights[i], alreadValue + values[i], bag)); //要这个商品
+}
+int main()
+{
+    vector<int> weights{ 1,2,3,4,5,6,7,8,9 };
+    vector<int> values{ 9,8,7,6,5,4,3,2,1 };
+    cout << process2(weights, values, 0, 0, 0, 20) << endl;
+}
