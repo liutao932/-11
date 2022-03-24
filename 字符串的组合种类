@@ -1,0 +1,32 @@
+给你一个数字字符串，可以组成多少种结果，例子“111”  “AAA” "AK" "KA"
+int process(string& s, int i)
+{
+    if (i == s.size())
+        return 1;
+    if (s[i] == 0)
+        return 0;
+    if (s[i] == '1')
+    {
+        int res = process(s, i + 1);
+        if (i + 1 < s.size())
+        {
+            res += process(s, i + 2);
+        }
+        return res;
+    }
+    if (s[i] == '2')
+    {
+        int res = process(s, i + 1);
+        if (i + 1 < s.size() && s[i+1] >= '2' && s[i+1] <= '6')
+        {
+            res += process(s, i + 2);
+        }
+        return res;
+    }
+    return process(s, i+1);
+}
+int main()
+{
+    string s("111111111");
+    cout<<process(s, 0)<<endl;
+}
