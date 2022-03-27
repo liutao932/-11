@@ -1,0 +1,52 @@
+int f(stack<int>& st)   //移除栈地元素
+
+{
+    int result = st.top();
+    st.pop();
+    if (st.empty())
+    {
+        return result;
+    }
+    else
+    {
+        int last = f(st);
+        st.push(result);
+        return last;
+    }
+}
+void reverse(stack<int>& st)
+{
+    if (st.empty())
+    {
+        return;
+    }
+    int i = f(st);
+    reverse(st);
+    st.push(i);
+}
+int main()
+{
+    /*vector<int> arr{ 2,2,3,4,3 };
+    cout << maxLength(arr) << endl*/;
+
+  /*  vector<int> arr{ 2,2,2,3,3,4,4,4,5,5,5,5,5,5,6,6,6,6,7,8,9 };
+    arr.erase(unique(arr.begin(), arr.end()),arr.end());
+    for (size_t i = 0; i < arr.size(); ++i)
+    {
+        cout << arr[i] << " ";
+    }*/
+
+    stack<int> st;
+    st.push(1);
+    st.push(2);
+    st.push(3);
+    st.push(4);
+    st.push(5);
+    //cout << f(st) << endl;
+    reverse(st);
+    while (!st.empty())
+    {
+        cout << st.top() << " ";
+        st.pop();
+    }
+}

@@ -1,0 +1,48 @@
+int numf(vector<int>& arr)
+{
+	int start = arr.size() -1, finsh = 0;
+	bool flag = false;
+	int n = arr.size();
+	for (int i = 0; i < n - 1; ++i)
+	{
+		int end = i;
+		int x = arr[end + 1];
+		while (end >= 0)
+		{
+			if (arr[end] > x)
+			{
+				finsh = end + 1 > finsh ? end + 1 : finsh;
+				swap(arr[end], arr[end + 1]);
+				flag = true;
+				--end;
+			}
+			else
+			{
+				break;
+			}
+		}
+		if (flag)
+		{
+			arr[end + 1] = x;
+			start = start < end + 1 ? start : end + 1;
+		}
+	}
+	if (!flag)
+	{
+		start = finsh = 0;
+	}
+	cout << start << " " << finsh << endl;    
+	return 0;
+}
+int main()
+{
+	vector<int> arr{ 1,2,3,4,5,3,6,11 };
+	cout << numf(arr) << endl;
+
+	/*int array[] = { 9,7,4,23,67,1,0 };
+	InsertSort(array, 7);
+	for (int i = 0; i < 7; ++i)
+	{
+		cout << array[i] << " ";
+	}*/
+}
