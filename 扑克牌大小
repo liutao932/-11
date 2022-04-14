@@ -1,0 +1,111 @@
+#include<iostream>
+using namespace std;
+#include<vector>
+
+vector<string> IsJust(vector<string>& v1, vector<string>& v2)
+{
+	vector<string> ret;
+	int len1 = v1.size(), len2 = v2.size();
+	if (len1 == 1 && len2 == 1)
+	{
+		if (v2[0] == "JOKER" || v1[0] == "JOKER")
+		{
+			ret.push_back("JOKER");
+			return ret;
+		}
+		else if (v1[0] == "joker" || v2[0] == "joker")
+		{
+			ret.push_back("joker");
+			return ret;
+		}
+	}
+	if (v1[0] == "joker" || v1[0] == "JOKER" )
+	{
+		ret.push_back("joker");
+		ret.push_back("JOKER");
+		return ret;
+	}
+	if (v2[0] == "joker" || v2[0] == "JOKER")
+	{
+		ret.push_back("joker");
+		ret.push_back("JOKER");
+		return ret;
+	}
+	if (len1 == len2)
+	{
+		return v1[0] > v2[0] ? v1 : v2;
+	}
+	else
+	{
+		if (len1 == 4) 
+			return v1;
+		else if (len2 == 4) 
+			return v2;
+		else
+		{
+			ret.push_back("ERROR");
+			return ret;
+		}
+	}
+}
+int main()
+{
+	string str;
+	getline(cin, str);
+	vector<string> v1,v2;
+	bool falg = true;
+	string tmp;
+	int start = 0;
+	for (size_t i = 0; i < str.size(); ++i)
+	{
+		if (str[i] == '-')
+		{
+			v1.push_back(tmp);
+			start = i;
+			break;
+		}
+		if (str[i] != ' ')
+		{
+			if (str[i] == 'A') str[i] = 'Y';
+			if (str[i] == '2') str[i] = 'Z';
+			tmp += str[i];
+		}
+		else
+		{
+			v1.push_back(tmp);
+			tmp.clear();
+		}
+	}
+	tmp.clear();
+	for (auto& e : v1)
+	{
+		if (e == "10") e = "B";
+	}
+	for (int i = start + 1; i < str.size(); ++i)
+	{
+		if (str[i] != ' ')
+		{
+			if (str[i] == 'A') str[i] = 'Y';
+			if (str[i] == '2') str[i] = 'Z';
+			tmp += str[i];
+		}
+		else
+		{
+			v2.push_back(tmp);
+			tmp.clear();
+		}
+	}
+	v2.push_back(tmp);
+	for (auto& e : v2)
+	{
+		if (e == "10") e = "B";
+	}
+	vector<string> ret = IsJust(v1, v2);
+	for (auto& e : ret)
+	{
+		if (e == "Y") e = "A";
+		if (e == "Z") e = "2";
+		if (e == "B") e = "10";
+		cout << e << " ";
+	}
+}
